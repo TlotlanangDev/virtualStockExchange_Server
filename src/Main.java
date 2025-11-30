@@ -1,36 +1,41 @@
+import java.sql.*;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 void main() {
 
 
-    String databaseUserName = "Tlotlanang";
-    String databasePassword = "Gabonewe";
+    ServerSocket serversocket;
+    Socket socket;
+    ServerThread serverthread;
+    Thread threading;
+
     try {
+
         while(true) {
-            ServerSocket serversocket = new ServerSocket(9000);
+
+            serversocket = new ServerSocket(9000);
             System.out.println("Waiting for connection....");
-            Socket socket = serversocket.accept();
-            System.out.println("Connected.");
-            DataInputStream inputstream = new DataInputStream(socket.getInputStream());
-            DataOutputStream outputstream = new DataOutputStream(socket.getOutputStream());
-            String clientUsername = inputstream.readUTF();
-            String clientPassword = inputstream.readUTF();
-            if(clientUsername.equals(databaseUserName) && clientPassword.equals(databasePassword)){
-                outputstream.writeUTF("Welcome to your Inbox!");
-            } else if (!clientUsername.equals(databaseUserName) || !clientPassword.equals(databasePassword)) {
-                outputstream.writeUTF("Password and Username not linked!!");
-            } else if (!clientUsername.equals(databaseUserName)) {
-                outputstream.writeUTF("Wrong UserName");
-            } else if (!clientPassword.equals(databasePassword)) {outputstream.writeUTF("Wrong Password!");}
-
-
+            socket = serversocket.accept();
+            serverthread = new ServerThread(socket);
+            threading = new Thread(serverthread);
+            threading.start();
             serversocket.close();
-            socket.close();
-            inputstream.close();
-            outputstream.close();
-        }
 
+
+        }
     } catch (Exception e) {
         throw new RuntimeException(e);
     }
+
 }
+        public static void login(){
+
+        }
+        public static void register(){
+
+        }
+
