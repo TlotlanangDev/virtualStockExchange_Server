@@ -26,10 +26,10 @@ public class databaseConnection {
     public static void userInsertTable(){
 
         try {
-            //statement.executeUpdate("INSERT INTO `mytable` ('Id', 'Name', 'Surname','PhoneNumber', 'Password') " +
-                    //"VALUES (NULL, 'Cleo', 'Omar','0787041819', 'meme')");
-            PreparedStatement statement = connect.prepareStatement("INSERT INTO `mytable` (`Id`, `Name`, `Surname`,'PhoneNumber', `Password`) " +
-            "VALUES (NULL, 'Cleo', 'Omar','85663363', 'meme')");
+            statement.executeUpdate("INSERT INTO `mytable` ('Id', 'Name', 'Surname','PhoneNumber', 'Password') " +
+                    "VALUES (NULL, 'Cleo', 'Omar','0787041819', 'meme')");
+            //PreparedStatement statement = connect.prepareStatement("INSERT INTO `mytable` (`Id`, `Name`, `Surname`,'PhoneNumber', `Password`) " +
+            //"VALUES (NULL, 'Cleo', 'Omar','85663363', 'meme')");
             System.out.println("Data inserted");
         } catch (SQLException e) {
             throw new RuntimeException(e);
