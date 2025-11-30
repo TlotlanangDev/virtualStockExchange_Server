@@ -24,7 +24,6 @@ public class databaseConnection {
         }
     }
     public static void userInsertTable(){
-
         try {
             statement.executeUpdate("INSERT INTO `mytable` ('Id', 'Name', 'Surname','PhoneNumber', 'Password') " +
                     "VALUES (NULL, 'Cleo', 'Omar','0787041819', 'meme')");
