@@ -50,9 +50,6 @@ public class ServerThread implements Runnable{
                 outputstream.writeUTF("Error!!");
             }
 
-            //socket.close();
-            //inputstream.close();
-            //outputstream.close();
         } catch (Exception e) {
             throw new RuntimeException(e);
 
@@ -64,9 +61,16 @@ public class ServerThread implements Runnable{
     private void registerMethod(Socket socket, DataInputStream inputstream, DataOutputStream outputstream) {
         System.out.println("Welcome to register Method..");
         try {
-            outputstream.writeUTF("Welcome to Register Method.");
+            String name = inputstream.readUTF();
+            String surName = inputstream.readUTF();
+            String passWord = inputstream.readUTF();
+            String dateOfBirth = inputstream.readUTF();
+            String email = inputstream.readUTF();
+            String phone = inputstream.readUTF();
+            String address = inputstream.readUTF();
+            outputstream.writeUTF("Registration Successful.");
             databaseConnection.Connection();
-            databaseConnection.userInsertTable();
+            databaseConnection.userInsertTable(name, surName, passWord, dateOfBirth, email, phone, address);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
