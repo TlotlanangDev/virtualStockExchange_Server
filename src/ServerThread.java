@@ -59,7 +59,6 @@ public class ServerThread implements Runnable{
     }
 
     private void registerMethod(Socket socket, DataInputStream inputstream, DataOutputStream outputstream) {
-        System.out.println("Welcome to register Method..");
         try {
             String name = inputstream.readUTF();
             String surName = inputstream.readUTF();
