@@ -1,8 +1,12 @@
+import java.io.IOException;
 import java.sql.*;
 
 public class databaseConnection {
         static Statement statement;
         static Connection connect;
+        static ResultSet results;
+        static String databaseUserName = null;
+        static String databasePassword = null;
 
 
     public static  void Connection(){
@@ -24,13 +28,12 @@ public class databaseConnection {
             throw new RuntimeException(e);
         }
     }
-    public static void userInsertTable(String name, String surName, String passWord, String dateOfBirth, String email, String phone, String address){
+    public static void userInsertTable(String name, String surName, String passWord, String dateOfBirth,
+                                       String email, String phone, String address){
 
 
 
         try {
-            //Date datefofBirth = new Date();
-            //java.sql.Date sqlDate = new java.sql.Date(datefofBirth.getTime());
 
             PreparedStatement statement = connect.prepareStatement("INSERT INTO user_info(Id, Name, SurName, Password, " +
                     "DateOfBirth, emailAddress, PhoneNumber, Address)" +
@@ -51,7 +54,18 @@ public class databaseConnection {
     public static void userUpdateTable(){
 
     }
-    public static void userSelectTable(){
+    public static void userSelectTable(String username, String password){
+        try {
+            Statement statement =connect.createStatement();
+            results = statement.executeQuery("SELECT * FROM user_info WHERE Name = '" + username +"' AND Password = '" +
+                    password + "' ");
+            while (results.next()){
+                databaseUserName = results.getString(2);
+                databasePassword = results.getString(4);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
     }
     public static void userDeleteTable(){
