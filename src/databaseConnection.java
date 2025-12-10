@@ -30,9 +30,7 @@ public class databaseConnection {
     }
     public static void userInsertTable(String name, String surName, String passWord, String dateOfBirth,
                                        String email, String phone, String address){
-
-
-
+        
         try {
 
             PreparedStatement statement = connect.prepareStatement("INSERT INTO user_info(Id, Name, SurName, Password, " +
@@ -57,6 +55,7 @@ public class databaseConnection {
     public static void userSelectTable(String username, String password){
         try {
             Statement statement =connect.createStatement();
+            //Fetch results from database
             results = statement.executeQuery("SELECT * FROM user_info WHERE Name = '" + username +"' AND Password = '" +
                     password + "' ");
             while (results.next()){

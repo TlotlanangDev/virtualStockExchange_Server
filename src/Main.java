@@ -24,11 +24,9 @@ void main() {
             threading = new Thread(serverthread);
             threading.start();
             serversocket.close();
-
-
         }
     } catch (Exception e) {
-        throw new RuntimeException(e);
+        System.out.println("Failed to connect Thread.");
     }
 
 }
