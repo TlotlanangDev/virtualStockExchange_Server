@@ -26,30 +26,24 @@ public class ServerThread implements Runnable{
         try {
             inputstream = new DataInputStream(socket.getInputStream());
             outputstream = new DataOutputStream(socket.getOutputStream());
-
+            System.out.println("Messages have been read.");
             String initialmessage = inputstream.readUTF();
-            System.out.println("read the message");
             if(initialmessage.equals(registerIndicator)){
                 outputstream.writeUTF("Register");
                 registerMethod(socket, inputstream, outputstream);
             } else if (initialmessage.equals(loginIndicator)) {
-                System.out.println("login");
                 outputstream.writeUTF("Login");
                 loginMethod(socket, inputstream,outputstream);
             }
             else {
-
                 outputstream.writeUTF("Error!!");
             }
-
         } catch (Exception e) {
-            throw new RuntimeException(e);
-
+            System.out.println("ServerThread run Streaming input/output error!!");
         }
-
-
     }
 
+//Read info from client and send it to mysql database
     private void registerMethod(Socket socket, DataInputStream inputstream, DataOutputStream outputstream) {
         try {
             String name = inputstream.readUTF();
@@ -61,16 +55,15 @@ public class ServerThread implements Runnable{
             String address = inputstream.readUTF();
             outputstream.writeUTF("Registration Successful.");
             databaseConnection.Connection();
+            //parse info to database
             databaseConnection.userInsertTable(name, surName, passWord, dateOfBirth, email, phone, address);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("ServerThread RegisterMethod Input stream error!!");
         }
     }
 
+    //compare input from client and stored info in the database to check if account is available to login
     public static void loginMethod(Socket socket, DataInputStream inputstream, DataOutputStream outputstream){
-
-
-
         try {
             String username = inputstream.readUTF();
             String password = inputstream.readUTF();
@@ -78,25 +71,15 @@ public class ServerThread implements Runnable{
             databaseConnection.userSelectTable(username, password);
             String databaseUserName = databaseConnection.databaseUserName;
             String databasePassword = databaseConnection.databasePassword;
-
-
+                //validate client input and database
                 if (username.equals(databaseUserName) && password.equals(databasePassword)) {
                     outputstream.writeUTF("You have loggen in..");
                 } else {
                     outputstream.writeUTF("Wrong username or Password...");
-
                 }
-
-
-
-
-
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("ServerThread loginmethod stream error!");
         }
-
-
     }
-
 
 }

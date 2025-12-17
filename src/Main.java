@@ -30,10 +30,5 @@ void main() {
     }
 
 }
-        public static void login(){
 
-        }
-        public static void register(){
-
-        }
 

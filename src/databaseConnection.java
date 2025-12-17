@@ -8,7 +8,7 @@ public class databaseConnection {
         static String databaseUserName = null;
         static String databasePassword = null;
 
-
+        //Connection to mysql Database
     public static  void Connection(){
 
         try {
@@ -16,23 +16,21 @@ public class databaseConnection {
             Class.forName("com.mysql.cj.jdbc.Driver");
             System.out.println("Driver loaded");
             String path = "jdbc:mysql://localhost:3306/virtualstockexchange";
-            //root is the username followed by password in the open quotation marks
             connect = DriverManager.getConnection(path, "root", "");
             System.out.println("Database connected..");
             statement = connect.createStatement();
-
-
         } catch (ClassNotFoundException ex) {
-
+            System.out.println("databaseConnection-Class not found eror!!");
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println("databaseConnection-connection method error!!");
         }
     }
+
+    //Insert input from server into the database
     public static void userInsertTable(String name, String surName, String passWord, String dateOfBirth,
                                        String email, String phone, String address){
         
         try {
-
             PreparedStatement statement = connect.prepareStatement("INSERT INTO user_info(Id, Name, SurName, Password, " +
                     "DateOfBirth, emailAddress, PhoneNumber, Address)" +
                     "VALUES(null, ?, ?, ?, ?, ?, ?, ?)");
@@ -46,27 +44,33 @@ public class databaseConnection {
             statement.executeUpdate();
             System.out.println("Data inserted");
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println("databaseConnection userInsertTable error!!");
         }
     }
+
+    //Update user info on the database
     public static void userUpdateTable(){
 
     }
+
+    //extract user info from the table
     public static void userSelectTable(String username, String password){
         try {
             Statement statement =connect.createStatement();
             //Fetch results from database
             results = statement.executeQuery("SELECT * FROM user_info WHERE Name = '" + username +"' AND Password = '" +
                     password + "' ");
+            //search results
             while (results.next()){
                 databaseUserName = results.getString(2);
                 databasePassword = results.getString(4);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println("databaseConnection SelectTable error!!");
         }
-
     }
+
+    //Delete user info on the database
     public static void userDeleteTable(){
 
     }
