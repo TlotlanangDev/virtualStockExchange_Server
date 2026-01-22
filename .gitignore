@@ -28,3 +28,4 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+/virtualStockExchange_Server/target/
