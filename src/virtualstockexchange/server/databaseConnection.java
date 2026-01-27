@@ -1,3 +1,5 @@
+
+package virtualstockexchange.server;
 import java.io.IOException;
 import java.sql.*;
 
@@ -14,10 +16,8 @@ public class databaseConnection {
         try {
             System.out.println("Connecting to database...");
             Class.forName("com.mysql.cj.jdbc.Driver");
-            System.out.println("Driver loaded");
             String path = "jdbc:mysql://localhost:3306/virtualstockexchange";
             connect = DriverManager.getConnection(path, "root", "");
-            System.out.println("Database connected..");
             statement = connect.createStatement();
         } catch (ClassNotFoundException ex) {
             System.out.println("databaseConnection-Class not found eror!!");

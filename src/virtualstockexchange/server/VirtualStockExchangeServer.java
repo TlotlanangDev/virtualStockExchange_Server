@@ -1,6 +1,5 @@
 
-
-package tlotlanang.virtualstockexchange_server;
+package virtualstockexchange.server;
 
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -9,7 +8,7 @@ import java.net.Socket;
  *
  * @author Tlotlanang
  */
-public class VirtualStockExchange_Server {
+public class VirtualStockExchangeServer {
 
     public static void main(String[] args) {
         ServerSocket serversocket;
