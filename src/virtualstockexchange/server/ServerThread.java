@@ -75,9 +75,9 @@ public class ServerThread implements Runnable{
             String databasePassword = databaseConnection.databasePassword;
                 //validate client input and database
                 if (username.equals(databaseUserName) && password.equals(databasePassword)) {
-                    outputstream.writeUTF("You have loggen in..");
+                    outputstream.writeUTF("LoggedIn");
                 } else {
-                    outputstream.writeUTF("Wrong username or Password...");
+                    outputstream.writeUTF("NotLoggedIn");
                 }
         } catch (IOException e) {
             System.out.println("ServerThread loginmethod stream error!");
